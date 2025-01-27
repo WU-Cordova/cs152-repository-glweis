@@ -16,7 +16,10 @@ class Bag(IBag[T]):
         raise NotImplementedError("remove method not implemented")
 
     def count(self, item: T) -> int:
-        raise NotImplementedError("count method not implemented")
+        counter = 0
+        for item in self.items_counts:
+            counter += self.items_counts[item]
+        return counter
 
     def __len__(self) -> int:
         raise NotImplementedError("__len__ method not implemented")
