@@ -49,4 +49,4 @@ class Bag(IBag[T]):
             return False
 
     def clear(self) -> None:
-        raise NotImplementedError("clear method not implemented")
+        self.items_counts.clear()
