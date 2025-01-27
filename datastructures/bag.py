@@ -15,7 +15,12 @@ class Bag(IBag[T]):
             self.items_counts[item] = 1
 
     def remove(self, item: T) -> None:
-        raise NotImplementedError("remove method not implemented")
+        if item in self.items_counts:
+            count_before = self.items_counts[item]
+            count_after = count_before - 1
+            self.items_counts[item] = count_after
+        else:
+            raise TypeError("Item not in bag")
 
     def count(self, item: T) -> int:
         counter = 0
