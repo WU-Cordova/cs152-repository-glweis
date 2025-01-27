@@ -9,6 +9,8 @@ class Bag(IBag[T]):
     def add(self, item: T) -> None:
         if item in self.items_counts:
             self.items_counts[item] += 1
+        elif item == None:
+            raise TypeError("None is not an item")
         else:
             self.items_counts[item] = 1
 
