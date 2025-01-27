@@ -4,10 +4,13 @@ from datastructures.ibag import IBag, T
 
 class Bag(IBag[T]):
     def __init__(self, *items: Optional[Iterable[T]]) -> None:
-        raise NotImplementedError("__init__ method not implemented")
+        self.items_counts = {}
 
     def add(self, item: T) -> None:
-        raise NotImplementedError("add method not implemented")
+        if item in self.items_counts:
+            self.items_counts[item] += 1
+        else:
+            self.items_counts[item] = 1
 
     def remove(self, item: T) -> None:
         raise NotImplementedError("remove method not implemented")
