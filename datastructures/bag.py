@@ -20,7 +20,7 @@ class Bag(IBag[T]):
             count_after = count_before - 1
             self.items_counts[item] = count_after
         else:
-            raise TypeError("Item not in bag")
+            raise ValueError("Item not in bag")
 
     def count(self, item: T) -> int:
         counter = 0
