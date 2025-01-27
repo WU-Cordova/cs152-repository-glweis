@@ -24,9 +24,11 @@ class Bag(IBag[T]):
 
     def count(self, item: T) -> int:
         counter = 0
-        for item in self.items_counts:
+        if item in self.items_counts:
             counter += self.items_counts[item]
-        return counter
+            return counter
+        else:
+            return counter
 
     def __len__(self) -> int:
         raise NotImplementedError("__len__ method not implemented")
