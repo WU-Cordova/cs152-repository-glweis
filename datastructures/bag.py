@@ -43,7 +43,10 @@ class Bag(IBag[T]):
         return distincts
 
     def __contains__(self, item) -> bool:
-        raise NotImplementedError("__contains__ method not implemented")
+        if item in self.items_counts:
+            return True
+        else:
+            return False
 
     def clear(self) -> None:
         raise NotImplementedError("clear method not implemented")
