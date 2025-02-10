@@ -65,7 +65,7 @@ class Game:
 
         if dealer_score == 21:
             print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
-            print("Dealer has Backjack! Dealer wins!") # test logic for dealer blackjack
+            print("Dealer has Backjack! Dealer wins!")
         elif dealer_score > 21 and not player_busted:
             print("Dealer busts! You win!")
         elif dealer_score > 21 and player_busted:
