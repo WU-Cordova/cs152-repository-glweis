@@ -6,36 +6,66 @@ import copy
 
 def main():
 
-    deck = [Card(face, suit) for suit in CardSuit for face in CardFace]
-    #print("".join(str(card) for card in deck))
+    while True:
+        game = Game()
 
-    num_decks = random.choice([2,4,6,8])
-    compiled_deck = [card for _ in range(num_decks) for card in copy.deepcopy(deck)]
-    #print("".join(str(card) for card in compiled_deck))
+        deck = [Card(face, suit) for suit in CardSuit for face in CardFace]
+        #print("".join(str(card) for card in deck))
 
-    deck_bag = Bag(*compiled_deck)
+        num_decks = random.choice([2,4,6,8])
+        compiled_deck = [card for _ in range(num_decks) for card in copy.deepcopy(deck)]
+        #print("".join(str(card) for card in compiled_deck))
 
-    two_cards = random.sample(list(deck_bag.distinct_card()),2)
-    #print(f"Two cards: {"".join(str(card) for card in two_cards)} with a face value of: {sum(card.card_face.face_value() for card in two_cards)}")
-    
+        deck_bag = Bag(*compiled_deck)
 
+        #two_cards = random.sample(list(deck_bag.distinct_card()),2)
+        #print(f"Two cards: {"".join(str(card) for card in two_cards)} with a face value of: {sum(card.card_face.face_value() for card in two_cards)}")
 
+        player_hand = random.sample(list(deck_bag.distinct_card()),2)
+        dealer_hand = random.sample(list(deck_bag.distinct_card()),2)
+        dealer_upcard = dealer_hand[0]
 
-    '''num_decks = random.choice([2,4,6,8])
+        player_score = game.calculate_hand(player_hand)
+        dealer_score = game.calculate_hand([dealer_upcard])
 
-    deck = Game.create_deck()
-    compiled_deck = deck * num_decks
+        print("🎮 Welcome to BlackJack!")
+        print()
 
-    random.shuffle(compiled_deck)
-    
-    player_hand = [compiled_deck.pop(), compiled_deck.pop()]
-    dealer_hand = [compiled_deck.pop(), compiled_deck.pop()]
-    dealer_upcard = dealer_hand[0]
+        print("🃏 Initial Deal:")
+        print(f"Player's Hand: {player_hand[0]}{player_hand[1]} | Score: {player_score}")
+        print(f"Dealer's Hand: {dealer_upcard}[Hidden] | Score: {dealer_score}")
 
-    player_hand_value = Game.calculate_hand(player_hand)
-    dealer_hand_value = Game.calculate_hand([dealer_upcard])
+        player_busted = not game.hit_or_stay(player_hand, deck_bag)  # Player busts if False
 
-    print(player_hand_value, dealer_hand_value)'''
+        dealer_score = game.calculate_hand(dealer_hand)
+        while dealer_score < 17:
+            card = random.choice(list(deck_bag.deck_bag.keys()))
+            dealer_hand.append(card)
+            dealer_score = game.calculate_hand(dealer_hand)
+
+            print()
+            print(f"Dealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
+
+        # Determine winner
+        if dealer_score > 21 and not player_busted:
+            print("Dealer busts! You win!")
+        if dealer_score > 21 and player_busted:
+            print("Dealer busts! It's a tie!")
+        elif dealer_score > player_score:
+            print()
+            print(f"Dealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
+            print("Dealer wins!")
+        elif dealer_score < player_score and not player_busted:
+            print("You win!")
+
+        print()
+        play_again = input("Do you want to play again? (Y)es or (N)o:")
+        if play_again != "Y":
+            print("Game over! Thanks for playing!")
+            break
+        else:
+            print("Starting new Game.")
+            print()
 
 if __name__ == '__main__':
     main()

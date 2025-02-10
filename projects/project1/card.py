@@ -5,11 +5,6 @@ import random
 #windows key + period + semi-colon
 #♠️ ♥️ ♦️ ♣️
 #🃏🎮🏆
-'''Ace logic: 
-    if 21 - current card value >= 11:
-        Ace value = 11
-    else:
-        Ace value = 1'''
 
 class CardSuit(Enum):
     #constant name for the card suits
@@ -31,7 +26,7 @@ class CardFace(Enum):
     JACK = "J"
     QUEEN = "Q"
     KING = "K"
-    ACE = "11"
+    ACE = "A"
 
     def face_value(self) -> int:
         match self:
@@ -41,7 +36,7 @@ class CardFace(Enum):
                 return 11
             case _:
                 return int(self.value)
-
+   
 @dataclass
 class Card:
     card_face: CardFace
@@ -52,20 +47,3 @@ class Card:
 
     def __str__(self) -> str:
         return f"[{self.card_face.value}{self.card_suit.value}]"
-
-    '''def __str__(self):
-        # Special handling for face cards (Jack, Queen, King) and Ace
-        if self.card_face.name == "JACK":
-            face = "J"
-        elif self.card_face.name == "QUEEN":
-            face = "Q"
-        elif self.card_face.name == "KING":
-            face = "K"
-        elif self.card_face.name == "ACE":
-            face = "A"
-        else:
-            face = str(self.card_face.value)  # For numbered cards, display the value
-        
-        # Return a formatted string for the card, combining face and suit
-        combined = f"{face}{self.card_suit.value}"
-        print(combined)'''
