@@ -72,7 +72,7 @@ def main():
             print("Dealer busts! You win!")
         elif dealer_score > 21 and player_busted:
             print("Dealer busts! It's a tie!") 
-        elif dealer_score > player_score and dealer_score <= 21 or player_busted and dealer_score <= 21:
+        elif dealer_score > player_score and dealer_score < 21 or player_busted and dealer_score < 21:
             print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("Dealer wins!")
         elif dealer_score < player_score and not player_busted:
