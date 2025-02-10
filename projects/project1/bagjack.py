@@ -3,6 +3,8 @@ from random import random
 from projects.project1.card import Card
 
 class Bag():
+    '''A version of the original 'bag' class, manipulated to recieve and deal with cards instead of items.'''
+
     def __init__(self, *cards: Optional[Iterable[Card]]) -> None:
         self.deck_bag = {}
         if cards:
@@ -40,6 +42,7 @@ class Bag():
         return length
 
     def distinct_card(self) -> int:
+        '''Used to select distinct cards at the initialization of every bagjack game/round.'''
         distincts = set()
         for card in self.deck_bag:
             distincts.add(card)

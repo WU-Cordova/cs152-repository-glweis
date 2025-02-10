@@ -3,13 +3,14 @@ from enum import Enum
 import random
 
 class CardSuit(Enum):
-    #constant name for the card suits
+    '''Creates constants for the card suits.'''
     HEARTS = "♥️"
     SPADES = "♠️"
     CLUBS = "♣️"
     DIAMONDS = "♦️"
 
 class CardFace(Enum):
+    '''Creates constants for the card faces.'''
     TWO = "2"
     THREE = "3"
     FOUR = "4"
@@ -25,6 +26,7 @@ class CardFace(Enum):
     ACE = "A"
 
     def face_value(self) -> int:
+        '''Responsible for handling edge cases (Jack, Queen, King, and Ace) and returning card faces as integer types.'''
         match self:
             case CardFace.JACK | CardFace.QUEEN | CardFace.KING:
                 return 10
