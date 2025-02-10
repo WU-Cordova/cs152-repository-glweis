@@ -28,44 +28,67 @@ def main():
         player_score = game.calculate_hand(player_hand)
         dealer_score = game.calculate_hand([dealer_upcard])
 
+        # Starting the game
         print("🎮 Welcome to BlackJack!")
         print()
-
         print("🃏 Initial Deal:")
         print(f"Player's Hand: {player_hand[0]}{player_hand[1]} | Score: {player_score}")
         print(f"Dealer's Hand: {dealer_upcard}[Hidden] | Score: {dealer_score}")
 
-        player_busted = not game.hit_or_stay(player_hand, deck_bag)  # Player busts if False
+        player_busted = not game.hit_or_stay(player_hand, deck_bag)
 
+        # Check for blackjack
+        if player_busted == False:
+            if game.calculate_hand(player_hand) == 21:
+                # New game?
+                print()
+                play_again = input("Do you want to play again? (Y)es or (N)o: ").strip().upper()
+                if play_again == "N":
+                    print("Game over! Thanks for playing!")
+                    break
+                elif play_again == "Y":
+                    print("Starting new Game.")
+                    print()
+                else:
+                    print("Invalid input. Please enter 'Y' for Yes or 'N' for No.")
+
+        # Dealer logic
         dealer_score = game.calculate_hand(dealer_hand)
         while dealer_score < 17:
             card = random.choice(list(deck_bag.deck_bag.keys()))
             dealer_hand.append(card)
             dealer_score = game.calculate_hand(dealer_hand)
 
-            print()
-            print(f"Dealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
+            print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
 
         # Determine winner
-        if dealer_score > 21 and not player_busted:
+        if dealer_score == 21:
+            print("Dealer has Backjack! Dealer wins!") # test logic for dealer blackjack
+        elif dealer_score > 21 and not player_busted:
             print("Dealer busts! You win!")
-        if dealer_score > 21 and player_busted:
-            print("Dealer busts! It's a tie!")
-        elif dealer_score > player_score:
-            print()
-            print(f"Dealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
+        elif dealer_score > 21 and player_busted:
+            print("Dealer busts! It's a tie!") 
+        elif dealer_score > player_score and dealer_score <= 21:
+            print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("Dealer wins!")
         elif dealer_score < player_score and not player_busted:
+            print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("You win!")
+        elif dealer_score == player_score:
+            print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
+            print("It's a tie!")
 
+        # New game?
         print()
-        play_again = input("Do you want to play again? (Y)es or (N)o:")
-        if play_again != "Y":
+        play_again = input("Do you want to play again? (Y)es or (N)o: ").strip().upper()
+        if play_again == "N":
             print("Game over! Thanks for playing!")
             break
-        else:
+        elif play_again == "Y":
             print("Starting new Game.")
             print()
+        else:
+            print("Invalid input. Please enter 'Y' for Yes or 'N' for No.")
 
 if __name__ == '__main__':
     main()

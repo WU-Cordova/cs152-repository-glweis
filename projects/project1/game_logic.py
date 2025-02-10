@@ -40,14 +40,18 @@ class Game:
                 print()
                 print("🏆 You have Blackjack! You win!")
                 return True
+                # does not exit the game fully when player has blackjack
 
             else:
-                action = input("Do you want to (H)it or (S)tay?")
+                action = input("Do you want to (H)it or (S)tay? ").strip().upper()
 
                 if action == "H":
                     card = random.choice(list(deck_bag.deck_bag.keys()))
                     player_hand.append(card)
                     player_score = Game.calculate_hand(player_hand)
+                    if player_score > 21:
+                        print("Bust! You went over 21.")
+                        return False
                 elif action == "S":
                     return True
                 else:
