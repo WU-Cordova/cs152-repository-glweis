@@ -2,10 +2,6 @@ from dataclasses import dataclass
 from enum import Enum
 import random
 
-#windows key + period + semi-colon
-#♠️ ♥️ ♦️ ♣️
-#🃏🎮🏆
-
 class CardSuit(Enum):
     #constant name for the card suits
     HEARTS = "♥️"

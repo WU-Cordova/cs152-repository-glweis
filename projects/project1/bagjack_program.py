@@ -49,6 +49,7 @@ def main():
                 elif play_again == "Y":
                     print("Starting new Game.")
                     print()
+                    continue
                 else:
                     print("Invalid input. Please enter 'Y' for Yes or 'N' for No.")
 
@@ -61,14 +62,17 @@ def main():
 
             print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
 
+        player_score = game.calculate_hand(player_hand)
+
         # Determine winner
         if dealer_score == 21:
+            print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("Dealer has Backjack! Dealer wins!") # test logic for dealer blackjack
         elif dealer_score > 21 and not player_busted:
             print("Dealer busts! You win!")
         elif dealer_score > 21 and player_busted:
             print("Dealer busts! It's a tie!") 
-        elif dealer_score > player_score and dealer_score <= 21:
+        elif dealer_score > player_score and dealer_score <= 21 or player_busted and dealer_score <= 21:
             print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("Dealer wins!")
         elif dealer_score < player_score and not player_busted:
@@ -77,6 +81,8 @@ def main():
         elif dealer_score == player_score:
             print(f"\nDealer's Hand: {"".join(str(card) for card in dealer_hand)} | Score: {dealer_score}")
             print("It's a tie!")
+
+        #bug when player busts but there is no win message for dealer
 
         # New game?
         print()

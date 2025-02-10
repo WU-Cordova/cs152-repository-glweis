@@ -2,7 +2,6 @@ from enum import Enum
 from projects.project1.card import Card, CardFace, CardSuit
 import random
 
-
 class Game:
 
     @staticmethod
@@ -32,6 +31,8 @@ class Game:
             print(f"Player's Hand: {"".join(str(card) for card in player_hand)} | Score: {player_score}")
 
             if player_score > 21:
+                print()
+                print(f"Player's Hand: {"".join(str(card) for card in player_hand)} | Score: {player_score}")
                 print("Bust! You went over 21.")
                 return False
             
@@ -40,7 +41,6 @@ class Game:
                 print()
                 print("🏆 You have Blackjack! You win!")
                 return True
-                # does not exit the game fully when player has blackjack
 
             else:
                 action = input("Do you want to (H)it or (S)tay? ").strip().upper()
@@ -50,6 +50,8 @@ class Game:
                     player_hand.append(card)
                     player_score = Game.calculate_hand(player_hand)
                     if player_score > 21:
+                        print()
+                        print(f"Player's Hand: {"".join(str(card) for card in player_hand)} | Score: {player_score}")
                         print("Bust! You went over 21.")
                         return False
                 elif action == "S":
