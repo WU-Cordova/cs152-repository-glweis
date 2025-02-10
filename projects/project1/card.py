@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from enum import Enum
-import random
 
 class CardSuit(Enum):
     '''Creates constants for the card suits.'''

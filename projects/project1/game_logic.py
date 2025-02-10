@@ -1,5 +1,5 @@
 from enum import Enum
-from projects.project1.card import Card, CardFace, CardSuit
+from projects.project1.card import CardFace
 import random
 
 class Game:
