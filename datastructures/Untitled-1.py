@@ -1,4 +1,7 @@
-# 2d array selection algorithim:
+from tests.test_array import Car
+from datastructures.array2d import Array2D
+
+# 2d array selection algorithim testing:
 
 Array = [["a", "b", "c", "d"],
          ["e", "f", "g", "h"],
@@ -24,3 +27,16 @@ let_1d = Array[spec_row][spec_col]
 
 print(let_2d)
 print(let_1d)
+
+
+
+# Stuff for array 2D
+def main():
+
+    data_type = Car
+
+    rows_len, cols_len = 3, 2
+
+    sequence = [[data_type() for _ in range(cols_len)] for _ in range(rows_len)]
+
+    return Array2D(starting_sequence=sequence, data_type=data_type)
