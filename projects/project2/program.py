@@ -1,9 +1,11 @@
-
+from gamecontroller import GameController
+from grid import Grid
+from cell import Cell
 
 def main():
-    
-    print("Hello, World!")
-
+    grid = Grid()
+    game = GameController()
+    game.run()
 
 
 if __name__ == '__main__':
