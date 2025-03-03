@@ -1,10 +1,12 @@
-from gamecontroller import GameController
-from grid import Grid
-from cell import Cell
+from projects.project2.gamecontroller import GameController
+from projects.project2.grid import Grid
+from projects.project2.kbhit import KBHit
 
 def main():
-    grid = Grid()
-    game = GameController()
+
+    kbhit = KBHit()
+    grid = Grid(10,10)
+    game = GameController(grid)
     game.run()
 
 
