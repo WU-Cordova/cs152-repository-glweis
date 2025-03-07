@@ -49,7 +49,10 @@ class Grid:
         if self.checks(next_gen) == False:
             self.current_grid = Array2D(starting_sequence=next_gen, data_type=Cell)
             self.generation_count += 1
-            self.display()
+            if self.colony_dead(next_gen) == True:
+                self.display()
+                print("Colony dead.")
+                print()
             return False
     
         self.current_grid = Array2D(starting_sequence=next_gen, data_type=Cell)
@@ -83,23 +86,17 @@ class Grid:
         # Stable
         if self.stable(next_gen):
             print("Colony stablilized.")
-            print("Next generation:")
             print()
             return False
-        #print("Colony unstable.")
 
         # Repeating
         if self.repeating(next_gen):
             print("Repeating pattern detected.")
-            print("Next generation:")
             print()
             return False
-        #print("Colony not repeating.")
 
         # Colony dead
         if self.colony_dead(next_gen):
-            print("Colony dead.")
-            print()
             return False
         
         return True

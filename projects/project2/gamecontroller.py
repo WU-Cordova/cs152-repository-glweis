@@ -12,6 +12,7 @@ class GameController:
         self.is_manual = False
         self.previous_gen = None
 
+        self.time_superspeed = False
         self.time_fast = False
         self.time_med = True
         self.time_slow = False
@@ -38,8 +39,12 @@ class GameController:
                 self.time_med = False
                 self.time_fast = True
             elif self.time_fast and key == "t":
-                print("Simulation speed slowed.")
+                print("Simulation speed quickened.")
                 self.time_fast = False
+                self.time_superspeed = True
+            elif self.time_superspeed and key == "t":
+                print("Simulation speed slowed.")
+                self.time_superspeed = False
                 self.time_slow = True
             elif self.time_slow and key == "t":
                 print("Simulation speed quickened.")
@@ -59,6 +64,8 @@ class GameController:
                     time.sleep(1)
                 if self.time_fast:
                     time.sleep(0.5)
+                if self.time_superspeed:
+                    time.sleep(0.1)
 
                 self.handle_input()
             else:
