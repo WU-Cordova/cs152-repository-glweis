@@ -70,7 +70,8 @@ class Array2D(IArray2D[T]):
         self.row_len = len(starting_sequence)
         self.col_len = len(starting_sequence[0])
 
-        self.array2 = Array([data_type() for item in range(self.row_len * self.col_len)], data_type=data_type)
+        # Edited for game of life
+        self.array2 = Array([data_type(row, col) for row in range(self.row_len) for col in range(self.col_len)], data_type=data_type)
         
         index = 0
         for row_index in range(self.row_len):
