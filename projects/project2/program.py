@@ -5,7 +5,7 @@ from projects.project2.kbhit import KBHit
 def main():
 
     kbhit = KBHit()
-    grid = Grid(5, 5)
+    grid = Grid(10, 10)
     game = GameController(grid)
     game.run()
 
