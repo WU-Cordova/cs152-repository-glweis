@@ -7,18 +7,24 @@ class Grid:
     def __init__(self, rows: int, columns: int) -> None:
         self.rows = rows
         self.columns = columns
-        cells: list[list[Cell]] = []
         self.history = []
         self.generation_count = 0
+        self.initialize_grid()
 
-        # initializing the grid
-        for row in range(rows):
+    def initialize_grid(self):
+        cells: list[list[Cell]] = []
+        for row in range(self.rows):
             cells.append([])
-            for col in range(columns):
+            for col in range(self.columns):
                 alive = random.choice((True, False))
                 cells[row].append(Cell((row, col), alive=alive))
         
         self.current_grid: Array2D = Array2D(starting_sequence=cells, data_type=Cell)
+
+    def reset(self):
+        self.history = []
+        self.generation_count = 0
+        self.initialize_grid()
 
     def get_cell(self, row, col):
         if row < 0 or row >= self.rows or col < 0 or col >= self.columns:
