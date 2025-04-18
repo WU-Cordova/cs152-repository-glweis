@@ -5,7 +5,7 @@
             "name": "Project 1",
             "type": "debugpy",
             "request": "launch",
-            "module": "projects.project1.program",
+            "module": "projects.project1.bagjack_program",
             "console": "integratedTerminal"
 
         }, 
