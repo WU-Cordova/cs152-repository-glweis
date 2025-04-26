@@ -93,7 +93,15 @@ class HashMap(IHashMap[KT, VT]):
                 yield key
     
     def __eq__(self, other: object) -> bool:
-        raise NotImplementedError("HashMap.__eq__() is not implemented yet.")
+        if not isinstance(other, HashMap):
+            return False
+        if self._capacity != other._capacity:
+            return False
+        
+        for i in range(self._capacity):
+            if self._buckets[i] != other._buckets[i]:
+                return False
+        return True
 
     def __str__(self) -> str:
         return "{" + ", ".join(f"{key}: {value}" for key, value in self) + "}"
