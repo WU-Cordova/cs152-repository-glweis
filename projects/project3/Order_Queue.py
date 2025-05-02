@@ -11,9 +11,11 @@ class Order_Queue:
         self._queue.enqueue(customer_order) # adds an order to the end of the queue
 
     def get_front_order(self) -> Customer_Order:
+        if self._queue._list.empty:
+            return None
         return self._queue.front() # returns the order at the front of the active queue (next to be completed)
     
-    def complete_order(self) -> None:
+    def complete_order(self) -> bool:
         done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
         self._complete.push(done) # pushes the complete order to the completed liststack
         return True
