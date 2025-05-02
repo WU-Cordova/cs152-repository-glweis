@@ -33,12 +33,12 @@ Trade-offs:
 - Pros: very low cost operations (enqueue and dequeue) and FIFO order processing.
 - Cons: no recovery of cancelled orders and no indexing (difficult order modification once an order is in the dequeue, which I did not implement).
 
-Open Orders temporary Deque:
+Open Orders Temporary Deque:
 To iterate over the open orders and print them (when called from the Main Menu) open order also uses a temporary `Deque` in the `__str__` operator to safely save the contents of its main `Deque`. This way, the data in open orders can be dequeued and printed off, but safely restored by the temporary `Deque` afterwards. The cost complexity between transfers is O(n x m) and the space complexity is O(n).
 
 Trade-offs:
 - Pros: allows safe storage of the original `Deque` and its orders (especially their ordering).
-- Cons: may take up excessive space/memory if the order is large/complex enough, and requires use in every open orders printout.
+- Cons: may take up excessive space/memory if the original `Deque` is large/complex enough, and requires use in every open orders printout.
 
 ### * ✅ Completed Orders - ListStack
 
@@ -47,6 +47,12 @@ A `ListStack` is used to handle all completed orders. Orders are pushed to the `
 Trade-offs:
 - Pros: low cost for operations, simple implementation, and efficient for end-of-day report calculation.
 - Cons: limited order access (since it's a stack).
+
+Completed orders will also reside in a temporary `Liststack` when processed for the end-of-day report. This ListStack behaves in the same way as open orders' temporary dequeue: it saves a temporary copy of the `ListStack` of completed orders so that the contents are not lost. The cost complexity between transfers is O(n x m) and the space complexity is O(n).
+
+Trade-offs:
+- Pros: allows safe storage of the original `Liststack` and its completed orders.
+- Cons: may take up excessive space/memory if the original `ListStack` is large/complex enough, and requires use in every end-of-day report.
 
 ## 2. 🖥️ Program Running Instructions:
 
@@ -208,10 +214,10 @@ Too many incorrect attempts. Please try again later.
 ## 4. 🐛 Known Bugs and Limitations:
 
 Bugs:
-- End-of-day report does not behave correctly under some circumstances.
+- No known bugs (though end-of-day report used to not behave correctly under some circumstances).
 
 Limitations:
-- Attempting to "mark next order as complete" will error when there are no complete orders (did not have time to patch this).
+- No known major limitations.
 
 ## 5. 🔧 What I'd Add With More Time:
 

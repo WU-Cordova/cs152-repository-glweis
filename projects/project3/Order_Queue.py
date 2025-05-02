@@ -19,19 +19,25 @@ class Order_Queue:
         done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
         self._complete.push(done) # pushes the complete order to the completed liststack
         return True
-        
+    
     def end_of_day_report(self):
         drink_summary = {}
         total_revenue = 0.0
+        temp_stack = ListStack(data_type=Customer_Order)
+
+        # copy data from _complete to temp_stack
         while not self._complete.empty:
             order = self._complete.pop()
-            for drink in order._order: # linkedlist
+            temp_stack.push(order)  # move it to temp stack
+
+            for drink in order._order:  # linkedlist
                 name = drink.name
                 drink_summary[name] = drink_summary.get(name, {'count': 0, 'revenue': 0.0})
                 drink_summary[name]["count"] += 1
                 drink_summary[name]["revenue"] += drink.price
                 total_revenue += drink.price
 
+        # Print the report
         print("\n📊 End-of-Day Report:")
         print("-" * 40)
         print(f"{'Drink Name':<20}{'Qty Sold':>10}{'Total Sales':>15}")
@@ -39,11 +45,14 @@ class Order_Queue:
             print(f"{drink:<20}{stats['count']:>10}{'$' + format(stats['revenue'], '.2f'):>15}")
         print(f"\n{'Total Revenue:':<30}{'$' + format(total_revenue, '.2f'):>15}")
 
-    # Dequeue of open orders
+        # Restore original stack state
+        while not temp_stack.empty:
+            self._complete.push(temp_stack.pop())
 
+    # Dequeue of open orders
     def __str__(self):
         if self._queue._list.empty:
-            return "🕒 No Open Orders."
+            return "\n🕒 No Open Orders."
 
         result = ["\n🕒 Open Orders:"]
         temp_queue = Deque(data_type=Customer_Order)
