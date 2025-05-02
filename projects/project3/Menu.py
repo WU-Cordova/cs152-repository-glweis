@@ -25,12 +25,3 @@ class Menu:
         for index, item in enumerate(self._menu, start=1):
             lines.append(f"{index}. {item.name} - ${item.price:.2f}")
         return "\n".join(lines)
-            
-    
-
-# Unused stuff
-
-'''def print_menu(self): # don't need
-        print("\n🍹 Available Drinks:")
-        for index, item in enumerate(self._menu, start=1):
-            print(f"{index}. {item.name} - ${item.price:.2f}")'''

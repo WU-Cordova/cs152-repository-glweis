@@ -208,8 +208,10 @@ Too many incorrect attempts. Please try again later.
 ## 4. 🐛 Known Bugs and Limitations:
 
 Bugs:
-- When taking multiple orders, it returns them in the wrong order.
-- Does not save end-of-day report once viewed once.
+- End-of-day report does not behave correctly under some circumstances.
+
+Limitations:
+- Attempting to "mark next order as complete" will error when there are no complete orders (did not have time to patch this).
 
 ## 5. 🔧 What I'd Add With More Time:
 

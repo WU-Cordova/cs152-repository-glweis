@@ -13,14 +13,10 @@ class Order_Queue:
     def get_front_order(self) -> Customer_Order:
         return self._queue.front() # returns the order at the front of the active queue (next to be completed)
     
-    def complete_order(self) -> bool:
-        if not self._queue._list.empty:
-            done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
-            self._complete.push(done) # pushes the complete order to the completed liststack
-            return True
-        else:
-            print("\nNo orders to mark complete!")
-            return False
+    def complete_order(self) -> None:
+        done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
+        self._complete.push(done) # pushes the complete order to the completed liststack
+        return True
         
     def end_of_day_report(self):
         drink_summary = {}

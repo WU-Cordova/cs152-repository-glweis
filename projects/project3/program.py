@@ -40,8 +40,12 @@ def main():
             print(order_queue)
             input("\nPress enter to return to Main Menu: ").strip().upper()
         elif choice == "4":
-            if order_queue.complete_order():
-                print(f"\n✅ Completed Order for {customer_order.name}!")
+            front_order = order_queue.get_front_order()
+            if front_order:
+                order_queue.complete_order()
+                print(f"\n✅ Completed Order for {front_order.name}!")
+            else:
+                print("\nNo orders to mark complete!")
             input("\nPress enter to return to Main Menu: ").strip().upper()
         elif choice == "5":
             order_queue.end_of_day_report()
