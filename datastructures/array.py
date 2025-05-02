@@ -81,7 +81,7 @@ class Array(IArray[T]):
     def append(self, data: T) -> None:
         # If the array has reached its capacity
         if self.__element_count >= self.__capacity:
-            self.__grow(self.__capacity * 2)
+            self.__grow((self.__capacity * 2) + 1)
         # Append
         self.__elements[self.__element_count] = data
         # Update logical size

@@ -3,8 +3,6 @@ from projects.project3.Drink import Drink
 from projects.project3.Menu import Menu
 import __future__
 
-# Customer Order = Linkedlist
-
 class Customer_Order:
     def __init__(self, name: str) -> None:
         self._order = LinkedList(data_type = Drink)
@@ -52,8 +50,9 @@ class Customer_Order:
     def take_order(self) -> 'Customer_Order':
         menu_obj = Menu()
         menu = menu_obj.return_items()
-        more = 'Y' or 'YES'
-        while more.upper() == 'Y' or more.upper() == 'YES' :
+        more = 'Y'
+
+        while more.upper() in ['Y', 'YES']:
             try:
                 start = int(input(f'\nWhat drink would you like? (enter number): '))
                 if 1 <= start <= 5:
@@ -62,9 +61,16 @@ class Customer_Order:
                     print("\nWe don't have that drink, sorry!")
                     continue
             except ValueError:
-                print("\nPlease enter a valid number for the drink.")
+                print("\nPlease enter a valid drink number.")
                 continue
-            more = input('\nWould you like to order another? (Y)es or (N)o?: ')
+            #more = input('\nWould you like to order another drink? (Y)es or (N)o?: ')
+
+            while True:
+                more = input('\nWould you like to order another drink? (Y)es or (N)o?: ').strip().upper()
+                if more in ['Y', 'YES', 'N', 'NO']:
+                    break
+                else:
+                    print("Invalid input. Please type (Y)es or (N)o.")
 
         self._count += 1
         print(self)

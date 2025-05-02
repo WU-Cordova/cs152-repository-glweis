@@ -2,9 +2,6 @@ from datastructures.deque import Deque
 from datastructures.liststack import ListStack
 from projects.project3.Customer_Order import Customer_Order
 
-# Orderqueue = dequeue (linkedlist)
-# Open order queue = dequeue
-
 class Order_Queue:
     def __init__(self):
         self._queue = Deque(data_type = Customer_Order) # an active orders queue
@@ -16,10 +13,14 @@ class Order_Queue:
     def get_front_order(self) -> Customer_Order:
         return self._queue.front() # returns the order at the front of the active queue (next to be completed)
     
-    def complete_order(self) -> None:  
-        done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
-        self._complete.push(done) # pushes the complete order to the completed liststack
-        return
+    def complete_order(self) -> bool:
+        if not self._queue._list.empty:
+            done = self._queue.dequeue() # assigns the top returned value from the active order queue to done
+            self._complete.push(done) # pushes the complete order to the completed liststack
+            return True
+        else:
+            print("\nNo orders to mark complete!")
+            return False
         
     def end_of_day_report(self):
         drink_summary = {}
@@ -33,10 +34,12 @@ class Order_Queue:
                 drink_summary[name]["revenue"] += drink.price
                 total_revenue += drink.price
 
-        print("\nEnd-of-Day Report:")
+        print("\n📊 End-of-Day Report:")
+        print("-" * 40)
+        print(f"{'Drink Name':<20}{'Qty Sold':>10}{'Total Sales':>15}")
         for drink, stats in drink_summary.items():
-            print(f"{drink}: {stats["count"]} sold, ${stats["revenue"]:.2f}")
-        print(f"Total Revenue: ${total_revenue:.2f}")
+            print(f"{drink:<20}{stats['count']:>10}{'$' + format(stats['revenue'], '.2f'):>15}")
+        print(f"\n{'Total Revenue:':<30}{'$' + format(total_revenue, '.2f'):>15}")
 
     # Dequeue of open orders
 
@@ -65,23 +68,3 @@ class Order_Queue:
             self._queue.enqueue(temp_queue.dequeue())
 
         return "\n".join(result)
-
-    
-
-    '''def view_open_orders(self):
-        if self._queue._list.empty:
-            print("No open orders.")
-            return
-        
-        print("\n🕒 Open Orders:")
-        temp_queue = Deque(data_type = Customer_Order) #??? preserve order?
-
-        while not self._queue._list.empty:
-            order = self._queue.dequeue()
-            print(f"- {order.name}:")
-            order.repeat_order()
-            temp_queue.enqueue(order)
-
-        # original queue
-        while not temp_queue._list.empty:
-            self._queue.enqueue(temp_queue.dequeue())'''
